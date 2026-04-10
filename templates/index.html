@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Distress Sound Detection Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div id="bg-overlay"></div>
+    
+    <!-- Hamburger Menu -->
+    <div class="hamburger-menu">
+        <button id="hamburger-btn" class="hamburger-btn">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </div>
+    
+    <!-- Settings Modal -->
+    <div id="settings-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>Settings</h2>
+            <div class="settings-section">
+                <label for="receiver-email">Receiver Email:</label>
+                <input type="email" id="receiver-email" placeholder="Enter email address">
+                <button id="save-email-btn" class="save-btn">Save Email</button>
+                <div id="email-message"></div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="dashboard-container">
+        <h1>Real-Time Distress Sound Detection</h1>
+        <button id="live-indicator" class="offline">Offline</button>
+        <div id="runtime-timer" aria-live="polite">
+            <span class="runtime-label">Running Time</span>
+            <span id="live-runtime">00:00</span>
+        </div>
+        <div id="mic-visualizer-wrap">
+            <div class="visualizer-label">Microphone Waveform</div>
+            <canvas id="mic-waveform" width="400" height="110"></canvas>
+        </div>
+        <div id="detection-status-panel">
+            <h2>Detection</h2>
+            <div class="status-row detection-live-row">
+                <span class="detection-live-label">Detection .......</span>
+                <span id="detection-chip" class="status-chip loading">Loading...</span>
+            </div>
+        </div>
+        <div id="live-alert" class="live-alert" aria-live="polite"></div>
+        <div id="detection-log-panel">
+            <div class="log-header">
+                <h2>Detection Event Log</h2>
+                <button id="clear-log-btn" type="button">Clear Log</button>
+            </div>
+            <ul id="detection-log-list">
+                {% if logs and logs|length > 0 %}
+                    {% for item in logs %}
+                        <li>
+                            <span class="log-event">
+                                <span class="log-badge {{ item.event|lower }}">{{ item.event }}</span>
+                                detected ({{ item.source }})
+                            </span>
+                            <span class="log-time">{{ item.timestamp }}</span>
+                        </li>
+                    {% endfor %}
+                {% else %}
+                <li class="empty-log">No detections yet</li>
+                {% endif %}
+            </ul>
+        </div>
+        
+        <form id="upload-form" enctype="multipart/form-data">
+            <input type="file" id="audio-file" name="audio" accept="audio/*">
+            <button type="submit">Upload Audio</button>
+        </form>
+        <div id="upload-result"></div>
+    </div>
+
+    <script src="/static/dashboard.js"></script>
+</body>
+</html>

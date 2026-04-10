@@ -1,0 +1,55 @@
+# Python cache and compiled files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Build artifacts
+*.egg-info/
+build/
+dist/
+
+# Environment files
+.env
+.env.*
+
+# Logs
+*.log
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Project-generated audio and datasets
+uploaded_audio/
+uploaded_audio_dir/
+testing_chunks/
+training_data/
+input_audio/
+audio.webm
+temp.wav
+*.wav
+*.mp3
+*.flac
+*.m4a
+*.ogg
+
+# Model artifacts
+model/*.h5
+model/*.pt
+model/*.pth
+model/*.pkl
+model/*.joblib
